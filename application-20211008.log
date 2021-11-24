@@ -1,0 +1,16 @@
+2021-10-08 09:21:57.894 [main] DEBUG org.example.App - Проверка логов 2.0
+2021-10-08 09:21:57.894 [main] INFO  org.example.App - Проверка логов 3.0
+2021-10-08 09:21:57.894 [main] WARN  org.example.App - Проверка логов 4.0
+2021-10-08 09:21:57.894 [main] ERROR org.example.App - Проверка логов 5.0
+2021-10-08 09:21:57.894 [main] FATAL org.example.App - Проверка логов 6.0
+2021-10-08 10:24:38.330 [main] ERROR org.example.App - value
+2021-10-08 10:25:07.968 [main] ERROR org.example.App - null
+2021-10-08 10:25:15.870 [main] ERROR org.example.App - value
+2021-10-08 10:25:49.710 [main] ERROR org.example.App - value
+2021-10-08 10:27:06.633 [main] ERROR org.example.App - 2847565
+2021-10-08 10:34:23.423 [main] ERROR org.example.App - 2847565
+2021-10-08 10:34:58.091 [main] ERROR org.example.App - 2847565
+2021-10-08 10:42:41.296 [main] ERROR org.example.App - 2847565
+2021-10-08 10:44:01.959 [main] ERROR org.example.App - 999999999999999999999999999999999999999
+2021-10-08 10:44:19.731 [main] ERROR org.example.App - 2847565
+2021-10-08 10:45:20.845 [main] ERROR org.example.App - key
