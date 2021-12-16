@@ -12,14 +12,14 @@ public class Car {
     @CsvBindByName(column = ConstantsProperties.MAKER_COUNTRY)
     String makerCountry;
 
-    public Car(long id, String autoBrand, String makerCountry) {
-        this.id = id;
+    public Car(String autoBrand, String makerCountry) {
+        this.id = System.currentTimeMillis();
         this.autoBrand = autoBrand;
         this.makerCountry = makerCountry;
     }
 
-    public Car(String autoBrand, String makerCountry) {
-        this.id = System.currentTimeMillis();
+    public Car(long id, String autoBrand, String makerCountry) {
+        this.id = id;
         this.autoBrand = autoBrand;
         this.makerCountry = makerCountry;
     }
@@ -43,11 +43,11 @@ public class Car {
         this.autoBrand = autoBrand;
     }
 
-    public String getSubject() {
+    public String getMakerCountry() {
         return makerCountry;
     }
 
-    public void setSubject(String makerCountry) {
+    public void setMakerCountry(String makerCountry) {
         this.makerCountry = makerCountry;
     }
 

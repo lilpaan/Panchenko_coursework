@@ -1,5 +1,5 @@
 package dataProviders.csv;
-
+import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
@@ -7,20 +7,53 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import dataProviders.Car;
-import dataProviders.IDataProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.example.ConstantsProperties;
+import org.example.AbstractDataProvider;
+import org.example.Status;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class DataProvider implements IDataProvider {
+public class DataProvider extends AbstractDataProvider {
     private static final Logger logger = LogManager.getLogger(DataProvider.class);
 
     public DataProvider() {
+    }
+    public <T> boolean saveCSV (List <T> list, String csvDir) {
+        boolean isSaved;
+        try {
+            CSVWriter csvWriter = new CSVWriter(new FileWriter(csvDir));
+            StatefulBeanToCsv<T> beanToCsv = new StatefulBeanToCsvBuilder<T>(csvWriter).build();
+            beanToCsv.write(list);
+            csvWriter.close();
+            isSaved = true;
+        } catch (IOException | CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
+            logger.error(e);
+            isSaved = false;
+        }
+        return isSaved;
+    }
+
+    public <T> Optional<List<T>> readCSV(Class<?> type, String csvDir) {
+        Optional<List<T>> opList;
+        File file = new File(csvDir);
+        if(file.exists()) {
+            try {
+                FileReader reader = new FileReader(csvDir);
+                opList = Optional.of(new CsvToBeanBuilder<T>(reader).withType((Class<? extends T>) type).build().parse());
+            } catch (IOException e) {
+                logger.error(e);
+                opList = Optional.empty();
+            }
+        } else {
+            opList = Optional.empty();
+        }
+        return opList;
     }
 
     @Override
@@ -52,31 +85,13 @@ public class DataProvider implements IDataProvider {
 
     @Override
     public void insert(Car car) {
-        Writer writer = null;
-        File file = new File(ConstantsProperties.PATH_TO_CSV);
-        List<Car> cars = new ArrayList<>();
-        if ((file.length() != 0) && file.exists()){
-            cars = selectCars();
+        List<Object> cars = new ArrayList<>();
+        if (readCSV(Car.class, ConstantsProperties.PATH_TO_CSV).isPresent()) {
+            cars = readCSV(Car.class, ConstantsProperties.PATH_TO_CSV).get();
         }
         cars.add(car);
-        try {
-            writer = new FileWriter(file);
-        } catch (IOException e) {
-            logger.error(e);
-        }
-        StatefulBeanToCsv<Car> beanToCsv = new StatefulBeanToCsvBuilder<Car>(writer).build();
-        try {
-            beanToCsv.write(car);
-        } catch (CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
-            logger.error(e);
-        }
-        try {
-            if (writer != null) {
-                writer.close();
-            }
-        } catch (IOException e) {
-            logger.error(e);
-        }
+        saveCSV(cars, ConstantsProperties.PATH_TO_CSV);
+        saveHistoryContent(getClass().getName(), Status.SUCCESS, car);
     }
 
 
@@ -96,26 +111,11 @@ public class DataProvider implements IDataProvider {
         if (newCar == null) {
             return;
         }
-        List<Car> cars = selectCars();
-        cars.removeIf(school -> (school.getId() == id));
-        Writer writer = null;
-        try {
-            writer = new FileWriter(ConstantsProperties.PATH_TO_CSV);
-        } catch (IOException e) {
-            logger.error(e);
+        List<Car> cars = new ArrayList<>();
+        if (readCSV(Car.class, ConstantsProperties.PATH_TO_CSV).isPresent()) {
+            cars = (List<Car>) (Object) readCSV(Car.class, ConstantsProperties.PATH_TO_CSV).get();
         }
-        StatefulBeanToCsv<Car> beanToCsv = new StatefulBeanToCsvBuilder<Car>(writer).build();
-        try {
-            beanToCsv.write(cars);
-        } catch (CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
-            logger.error(e);
-        }
-        try {
-            if (writer != null) {
-                writer.close();
-            }
-        } catch (IOException e) {
-            logger.error(e);
-        }
+        cars.removeIf(car -> (car.getId() == id));
+        saveCSV(cars, ConstantsProperties.PATH_TO_CSV);
     }
 }

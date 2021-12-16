@@ -6,12 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="IDEAproj" />
         <module name="Panchenko_1lab" />
-<<<<<<< HEAD
-        <module name="Panchenko_coursework" />
-=======
->>>>>>> 0a023a0... Initial commit
       </profile>
     </annotationProcessing>
   </component>

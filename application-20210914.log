@@ -1,5 +1,0 @@
-2021-09-14 21:44:58.172 [main] DEBUG org.example.App - Проверка логов 2.0
-2021-09-14 21:44:58.176 [main] INFO  org.example.App - Проверка логов 3.0
-2021-09-14 21:44:58.176 [main] WARN  org.example.App - Проверка логов 4.0
-2021-09-14 21:44:58.176 [main] ERROR org.example.App - Проверка логов 5.0
-2021-09-14 21:44:58.177 [main] FATAL org.example.App - Проверка логов 6.0

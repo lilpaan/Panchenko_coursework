@@ -1,10 +1,10 @@
 package dataProviders.xml;
 
 import dataProviders.Car;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.example.ConstantsProperties;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @XmlRootElement(name = ConstantsProperties.CARS)

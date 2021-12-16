@@ -1,9 +1,0 @@
-2021-10-15 08:10:11.009 [main] ERROR org.example.App - 2847565
-2021-10-15 08:10:42.046 [main] INFO  org.example.App - 2847565
-2021-10-15 08:11:04.116 [main] INFO  org.example.App - 2847565
-2021-10-15 08:12:32.398 [main] INFO  org.example.App - 999999999999999999999999999999999999999
-2021-10-15 08:21:42.436 [main] INFO  org.example.App - 2847565
-2021-10-15 08:22:57.331 [main] INFO  org.example.App - null
-2021-10-15 08:23:44.784 [main] INFO  org.example.App - null
-2021-10-15 08:24:22.452 [main] INFO  org.example.App - 999999999999999999999999999999999999999
-2021-10-15 08:25:08.969 [main] INFO  org.example.App - null
